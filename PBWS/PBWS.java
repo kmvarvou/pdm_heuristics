@@ -196,10 +196,7 @@ public class PBWS {
                String filename = heuristics[choice] + ".txt";
                
                pw[choice].println((y+1)+","+cost+","+time);
-               if(cost==0 || time==0)
-               {
-                   debug++;
-               }
+               
                sum[choice] += cost;
                sum2[choice] += time;
                break;
@@ -256,6 +253,7 @@ public class PBWS {
            int cost2 = Integer.valueOf(temp14[temp14.length-2]);
            cost = cost + cost2; //cost of the entire path is calculated in a step by step manner
            int time2 = Integer.valueOf(temp14[temp14.length-3]);
+           
            time = time + time2;
            operations.remove(key);//operation is removed from the list of operations as it is no longer available
            if(available.contains("A"))//if A has been produced then the execution is completed
@@ -417,7 +415,7 @@ public class PBWS {
         if(result ==1) // the execution was successful and therefore the element is produced and added to the set of available elements
         {
             available.add(temp16[temp16.length-4]);
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
+            System.out.println("ShortestOp" + key+ "," + temp16[temp16.length-4]);
             
         }
         else //execution was unsuccessful and therefore the element was not produced
