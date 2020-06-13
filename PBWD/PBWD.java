@@ -61,11 +61,11 @@ public class PBWD {
         int minInt=1, maxInt=10;
         Random r = new Random();
         HashMap<Integer, String[]> operations = new HashMap();
-        String[] temp = {"i25","i27","i01","0","0","1"};
-        int result = r.nextInt((maxInt - minInt) + 1) + minInt;
+        String[] temp = {"i25","i27","i01","0","0","1"}; //each tempi string corresponds to a production rule and contains its attributes in the following format:
+        int result = r.nextInt((maxInt - minInt) + 1) + minInt;//input1,..., inputN(for a rule with N input elements), output, time, cost, probability of success
         double random2 = ThreadLocalRandom.current().nextDouble(min, max);
-        temp[temp.length-1] = String.valueOf(random2);
-        temp[temp.length-2] = String.valueOf(result);
+        temp[temp.length-1] = String.valueOf(random2); //the values specified at the initialization of each variable correspond to the actual values of the pdm
+        temp[temp.length-2] = String.valueOf(result);//for the purposes of our evaluation these values are replaced by random values
         result = r.nextInt((maxInt - minInt) + 1) + minInt;
         temp[temp.length-3] = String.valueOf(result);
         operations.put(1,temp);
@@ -464,27 +464,27 @@ public class PBWD {
         temp151[temp151.length-3] = String.valueOf(result);
         operations.put(51,temp151);
         
-        HashMap<Integer,String[]> operations_graph = (HashMap) operations.clone();
+        HashMap<Integer,String[]> operations_graph = (HashMap) operations.clone();//the original graph is kept for the construction of the adjacency matrixes, because during the execution each executed operation is removed from the initial graph
         Iterator print = operations.entrySet().iterator();
         while(print.hasNext())
         {
             HashMap.Entry entryprint = (HashMap.Entry) print.next();
             String[] printtemp = (String[]) entryprint.getValue();
-            //System.out.println(printtemp[printtemp.length-3] + "     cost " + printtemp[printtemp.length-2] + "      prob" + printtemp[printtemp.length-1]);
+           
         }
         
         
-        int count = 10;
+        int count = 10; //this variable corresponds to the number of heuristics
          List<Map<Integer, String[]>> listOfMaps = new ArrayList<Map<Integer, String[]>>();
         int u=0;
-        int choice =0;
-        while(u<10)
+        int choice =0;// this variable denotes which heuristic is executed, according to the order in which they are listed in
+        while(u<10)// the array heuristics
         {
-           listOfMaps.add((HashMap) operations.clone());
+           listOfMaps.add((HashMap) operations.clone());//we create 10 seperate clones of each instance, one for each heuristic
            u++;
            
         }
-        while(choice<10)
+        while(choice<10)// for each instance
         {
         cost =0;
         time=0;
@@ -520,23 +520,20 @@ public class PBWD {
                   executable.put((Integer)pair.getKey(),(String[]) pair.getValue());
               }
             }
-            //it.remove(); // avoids a ConcurrentModificationException
+            
             
             }
            if(executable.size()==0)//execution has completed since the production of A is no longer possible
            {
-               //System.out.println(cost);
-               //System.out.println();
-               String filename = heuristics[choice] + ".txt";
+               
+               
+               String filename = heuristics[choice] + ".txt"; //using the heuristics array and the variable choice, the filename corresponds to the output file that belongs to the heuristic currently executed
                
                bw[choice].write((y+1)+","+(int)cost+","+(int)time);
                bw[choice].newLine();
                sum[choice] += cost;
                sum2[choice] +=time;
-               if(time==0||cost==0)
-               {
-                   debug++;
-               }
+               
                break;
            }
            int key;
@@ -558,7 +555,7 @@ public class PBWD {
            }
            else if(choice==4)
            {
-               key=rootDistance2(executable,available,operations_graph);
+               key=rootDistance(executable,available,operations_graph);
            }
            else if(choice==5)
            {
@@ -581,20 +578,16 @@ public class PBWD {
                key=timeDistance(executable,available,operations_graph);
            }
                
-           //int key=executeRandom(executable,available,operations);
-           //int key = executeLowestCost(executable,available,operations);
-           //int key = rootDistance2(executable,available,operations);
-           //int key = executeKnockout2(executable,available,operations);
-           //int key = knockoutPath(executable,available,operations);
+           
            
            
            String[] temp14 = operations.get(key);
            double cost2 = Double.valueOf(temp14[temp14.length-2]);
            cost = cost + cost2; //cost of the entire path is calculated in a step by step manner
            double time2 = Double.valueOf(temp14[temp14.length-3]);
-           time = time + time2;
+           time = time + time2;//time of the entire path is calculated in a step by step manner
            operations.remove(key);//operation is removed from the list of operations as it is no longer available
-           if(available.contains("i18"))//if A has been produced then the execution is completed
+           if(available.contains("i18"))//if i18(root element) has been produced then the execution is completed
            {
                //System.out.println(cost);
                //System.out.println();
@@ -604,10 +597,7 @@ public class PBWD {
                bw[choice].newLine();
                sum[choice] += cost;
                sum2[choice] += time;
-               if(time==0 || cost==0)
-               {
-                   debug++;
-               }
+              
                break;
            }
            
@@ -626,7 +616,7 @@ public class PBWD {
         y++;
     
     }
-      for(int u=0;u<10;u++)
+      for(int u=0;u<10;u++)// the average values for each heuristic are calculated
       {
       double result = (double) sum[u]/ (double)y; //average execution cost
       double result2 = (double) sum2[u] /(double)y;
@@ -634,7 +624,7 @@ public class PBWD {
       bw[u].close();
       }
       
-      //System.out.println(y);
+     ;
      }
     
     private static int getRandomNumberInRange(int min, int max) {
@@ -728,7 +718,7 @@ public class PBWD {
         return key;
     }
     
-    private static int executeShortestTime(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)
+    private static int executeShortestTime(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)//Shortest Time execution strategy
     {
         int n = input.size();
         double[][] cost = new double [n][3];
@@ -763,7 +753,7 @@ public class PBWD {
         return key;
     }
     
-    private static int executeLowestFail(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)
+    private static int executeLowestFail(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)//Lowest Failure Probability strategy
     {
         int n = input.size();
         double[][] cost = new double [n][3];
@@ -798,7 +788,7 @@ public class PBWD {
         return key;
     }
     
-    public static double getMinValue(double[][] numbers)
+    public static double getMinValue(double[][] numbers)//returns index of minimum number of a double array
     {
                 
         double minValue = numbers[0][1];
@@ -815,7 +805,7 @@ public class PBWD {
 		return numbers[index][0];
 	}
     
-    public static int getMinIntValue(int[][] numbers)
+    public static int getMinIntValue(int[][] numbers)// returns index of minimum value of int array
     {
                 
         int minValue = numbers[0][1];
@@ -832,7 +822,7 @@ public class PBWD {
 		return numbers[index][0];
 	}
     
-    public static double getMaxValue(double[][] numbers)
+    public static double getMaxValue(double[][] numbers)//returns index of maximm value of double array
     {
                 
         double maxValue = numbers[0][1];
@@ -849,7 +839,7 @@ public class PBWD {
 		return numbers[index][0];
 	}
     
-    public static int getMinValue2(int[][] numbers)
+    public static int getMinValue2(int[][] numbers)// returns minimum value of int array
     {
                 
         int minValue = numbers[0][1];
@@ -880,7 +870,7 @@ public class PBWD {
         }
     }
     
-    private static int rootDistance2(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)
+    private static int rootDistance(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)//distance from root element execution strategy
     {
         int graph[][] = new int[50][50];
         
@@ -908,7 +898,7 @@ public class PBWD {
                 int one = Integer.parseInt(index);
                 String index2 = dokimi[limit-1].replace("i","");
                 int two = Integer.parseInt(index2);
-                //graph[one][two]=Double.parseDouble(dokimi[limit]);
+                
                 graph[two][one]=1;
                
                 
@@ -964,7 +954,7 @@ public class PBWD {
         return key;
     }
     
-    private static int costDistance(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)
+    private static int costDistance(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)//distance from root element (in terms of cost) execution strategy
     {
         int graph[][] = new int[50][50];
         
@@ -1048,7 +1038,7 @@ public class PBWD {
         return key;
     }
     
-    private static int timeDistance(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)
+    private static int timeDistance(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)//distance from root element (in terms of time) execution strategy
     {
         int graph[][] = new int[50][50];
         
@@ -1135,7 +1125,7 @@ public class PBWD {
      
       
       
-   private static int knockoutPath(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)
+   private static int knockoutPath(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)// rank-cost execution strategy
    {
         double graph[][] = new double[50][50];
         double graph2[][] = new double [50][50];
@@ -1222,7 +1212,7 @@ public class PBWD {
           
           i++;
         }
-        int key = (int) getMaxValue(cost); // the rule with the lowest value(distance from root) is selected for execution
+        int key = (int) getMaxValue(cost); // the rule with the highest ranking value is selected for execution
         //System.out.println(key);
         String[] temp16 = input.get(key);
         double prob = Double.parseDouble(temp16[temp16.length-1]);
@@ -1244,7 +1234,7 @@ public class PBWD {
    }
     
     
-   private static int knockoutPathTime(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)
+   private static int knockoutPathTime(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)//rank time execution strategy
    {
         double graph[][] = new double[50][50];
         double graph2[][] = new double [50][50];
@@ -1331,7 +1321,7 @@ public class PBWD {
           
           i++;
         }
-        int key = (int) getMaxValue(cost); // the rule with the lowest value(distance from root) is selected for execution
+        int key = (int) getMaxValue(cost); // the rule with the highest ranking value is selected for execution
         //System.out.println(key);
         String[] temp16 = input.get(key);
         double prob = Double.parseDouble(temp16[temp16.length-1]);
@@ -1353,7 +1343,7 @@ public class PBWD {
    }
    
    
-   private static int knockoutPathCombo(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)
+   private static int knockoutPathCombo(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)// rank cost*time strategy
    {
         double graph[][] = new double[50][50];
         double graph2[][] = new double [50][50];
@@ -1440,7 +1430,7 @@ public class PBWD {
           
           i++;
         }
-        int key = (int) getMaxValue(cost); // the rule with the lowest value(distance from root) is selected for execution
+        int key = (int) getMaxValue(cost); // the rule with the highest ranking value is selected for execution
         
         String[] temp16 = input.get(key);
         double prob = Double.parseDouble(temp16[temp16.length-1]);
