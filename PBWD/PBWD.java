@@ -525,8 +525,8 @@ public class PBWD {
             }
            if(executable.size()==0)//execution has completed since the production of A is no longer possible
            {
-               System.out.println(cost);
-               System.out.println();
+               //System.out.println(cost);
+               //System.out.println();
                String filename = heuristics[choice] + ".txt";
                
                bw[choice].write((y+1)+","+(int)cost+","+(int)time);
@@ -596,8 +596,8 @@ public class PBWD {
            operations.remove(key);//operation is removed from the list of operations as it is no longer available
            if(available.contains("i18"))//if A has been produced then the execution is completed
            {
-               System.out.println(cost);
-               System.out.println();
+               //System.out.println(cost);
+               //System.out.println();
                String filename = heuristics[choice] + ".txt";
                
                bw[choice].write((y+1)+","+(int)cost+","+(int)time);
@@ -621,8 +621,8 @@ public class PBWD {
         }
         choice++;
         }//choice
-        System.out.println();
-        System.out.println();
+        //System.out.println();
+        //System.out.println();
         y++;
     
     }
@@ -630,11 +630,11 @@ public class PBWD {
       {
       double result = (double) sum[u]/ (double)y; //average execution cost
       double result2 = (double) sum2[u] /(double)y;
-      System.out.println(heuristics[u]+"    cost: " +result +"      time: " + result2);
+      //System.out.println(heuristics[u]+"    cost: " +result +"      time: " + result2);
       bw[u].close();
       }
-      System.out.println(debug);
-      System.out.println(y);
+      
+      //System.out.println(y);
      }
     
     private static int getRandomNumberInRange(int min, int max) {
@@ -674,11 +674,11 @@ public class PBWD {
             if(result ==1) // the execution was successful and therefore the element is produced and added to the set of available elements
             {
                 available.add(temp13[temp13.length-4]);
-                System.out.println("Op" + key+ "," + temp13[temp13.length-4]);
+                //System.out.println("Op" + key+ "," + temp13[temp13.length-4]);
             }
             else //execution was unsuccessful and therefore the element was not produced
             {
-                System.out.println("Op" + key+ "," + temp13[temp13.length-4] + " fail");
+                //System.out.println("Op" + key+ "," + temp13[temp13.length-4] + " fail");
             }
             
             
@@ -717,12 +717,12 @@ public class PBWD {
         if(result ==1) // the execution was successful and therefore the element is produced and added to the set of available elements
         {
             available.add(temp16[temp16.length-4]);
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
             
         }
         else //execution was unsuccessful and therefore the element was not produced
         {
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
         }
         
         return key;
@@ -752,12 +752,12 @@ public class PBWD {
         if(result ==1) // the execution was successful and therefore the element is produced and added to the set of available elements
         {
             available.add(temp16[temp16.length-4]);
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
             
         }
         else //execution was unsuccessful and therefore the element was not produced
         {
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
         }
         
         return key;
@@ -787,12 +787,12 @@ public class PBWD {
         if(result ==1) // the execution was successful and therefore the element is produced and added to the set of available elements
         {
             available.add(temp16[temp16.length-4]);
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
             
         }
         else //execution was unsuccessful and therefore the element was not produced
         {
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
         }
         
         return key;
@@ -954,12 +954,12 @@ public class PBWD {
         if(result ==1) // the execution was successful and therefore the element is produced and added to the set of available elements
         {
             available.add(temp16[temp16.length-4]);
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
             
         }
         else //execution was unsuccessful and therefore the element was not produced
         {
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
         }
         return key;
     }
@@ -992,7 +992,7 @@ public class PBWD {
                 int one = Integer.parseInt(index);
                 String index2 = dokimi[limit-1].replace("i","");
                 int two = Integer.parseInt(index2);
-                //graph[one][two]=Double.parseDouble(dokimi[limit]);
+                
                 graph[two][one]=Integer.parseInt(dokimi[limit+1]);
                
                 
@@ -1038,12 +1038,12 @@ public class PBWD {
         if(result ==1) // the execution was successful and therefore the element is produced and added to the set of available elements
         {
             available.add(temp16[temp16.length-4]);
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
             
         }
         else //execution was unsuccessful and therefore the element was not produced
         {
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
         }
         return key;
     }
@@ -1076,7 +1076,7 @@ public class PBWD {
                 int one = Integer.parseInt(index);
                 String index2 = dokimi[limit-1].replace("i","");
                 int two = Integer.parseInt(index2);
-                //graph[one][two]=Double.parseDouble(dokimi[limit]);
+                
                 graph[two][one]=Integer.parseInt(dokimi[limit]);
                
                 
@@ -1114,7 +1114,7 @@ public class PBWD {
           i++;
         }
         int key = (int) getMinValue(cost); // the rule with the lowest value(distance from root) is selected for execution
-        //System.out.println(key);
+        
         String[] temp16 = input.get(key);
         double prob = Double.parseDouble(temp16[temp16.length-1]);
         input.remove(key);
@@ -1122,12 +1122,12 @@ public class PBWD {
         if(result ==1) // the execution was successful and therefore the element is produced and added to the set of available elements
         {
             available.add(temp16[temp16.length-4]);
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
             
         }
         else //execution was unsuccessful and therefore the element was not produced
         {
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
         }
         return key;
     }
@@ -1231,12 +1231,12 @@ public class PBWD {
         if(result ==1) // the execution was successful and therefore the element is produced and added to the set of available elements
         {
             available.add(temp16[temp16.length-4]);
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
             
         }
         else //execution was unsuccessful and therefore the element was not produced
         {
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
         }
         return key;
         
@@ -1340,12 +1340,12 @@ public class PBWD {
         if(result ==1) // the execution was successful and therefore the element is produced and added to the set of available elements
         {
             available.add(temp16[temp16.length-4]);
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
             
         }
         else //execution was unsuccessful and therefore the element was not produced
         {
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
         }
         return key;
         
@@ -1390,10 +1390,10 @@ public class PBWD {
                 int one = Integer.parseInt(index);
                 String index2 = dokimi[limit-1].replace("i","");
                 int two = Integer.parseInt(index2);
-                //graph[one][two]=Double.parseDouble(dokimi[limit]);
+                
                 graph[two][one]=Double.parseDouble(dokimi[limit])*Double.parseDouble(dokimi[limit+1]);
                 double prob = Double.parseDouble(dokimi[limit+2]);
-                //graph2[one][two] = 1 - prob;
+                
                 graph2[two][one] = 1 - prob;
                 
              }
@@ -1441,7 +1441,7 @@ public class PBWD {
           i++;
         }
         int key = (int) getMaxValue(cost); // the rule with the lowest value(distance from root) is selected for execution
-        //System.out.println(key);
+        
         String[] temp16 = input.get(key);
         double prob = Double.parseDouble(temp16[temp16.length-1]);
         input.remove(key);
@@ -1449,12 +1449,12 @@ public class PBWD {
         if(result ==1) // the execution was successful and therefore the element is produced and added to the set of available elements
         {
             available.add(temp16[temp16.length-4]);
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
             
         }
         else //execution was unsuccessful and therefore the element was not produced
         {
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
         }
         return key;
         
