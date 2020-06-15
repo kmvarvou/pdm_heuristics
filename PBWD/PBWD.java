@@ -484,7 +484,7 @@ public class PBWD {
            u++;
            
         }
-        while(choice<10)// for each instance
+        while(choice<10)// for each heuristic
         {
         cost =0;
         time=0;
@@ -523,7 +523,7 @@ public class PBWD {
             
             
             }
-           if(executable.size()==0)//execution has completed since the production of A is no longer possible
+           if(executable.size()==0)//execution has completed since the production of i18 is no longer possible
            {
                
                
