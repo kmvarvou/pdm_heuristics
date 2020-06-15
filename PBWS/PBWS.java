@@ -627,10 +627,7 @@ public class PBWS {
     private static int costDistance(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)//distance from root element (in terms of cost) execution strategy
     {
         int graph[][] = new int[9][9];
-        if(operations.size()<10)
-        {
-            System.out.println("den kano oute gia ptoma");
-        }
+        
         Iterator it = operations.entrySet().iterator();
         while(it.hasNext())
         {
