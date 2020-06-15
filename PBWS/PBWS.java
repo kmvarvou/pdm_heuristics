@@ -163,7 +163,7 @@ public class PBWS {
            Iterator it = operations.entrySet().iterator();
            while (it.hasNext()) //calculate executable operations
            {
-            //System.out.println(choice + "arxi");
+            
             HashMap.Entry pair = (HashMap.Entry)it.next();
             String[] temp11 = (String[])pair.getValue();
             if(temp11.length==4) //cases where operation has no input elements
