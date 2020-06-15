@@ -16,7 +16,13 @@ import java.io.*;
 public class ShortestPathProb { 
     // A utility function to find the vertex with minimum distance value, 
     // from the set of vertices not yet included in shortest path tree 
-    static final int V = 9; 
+    //the input graph contains for each edge the probability of failure (each edge corresponds to a production rule)
+   //based on this distance(probability of failure) we calculate the shortest path from source to each vertex
+   //but simultaneously, we calculate at each transition the probability of success, which the product of (1-probability of failure)
+   // example vertex 0-1-8 with probabilities of failure 0.05 and 0.10 respectively for the two edges (0-1 and 1-8)
+   // this means that the probability of success of going from vertex 0 to vertex 8 is (1-0.05)*(1-0.1) = 0.855
+  //this adjustment was made because dijkstra finds the minimum sum of edges' weights while our case required, due to the nature of probabilities, to work with products of weights
+  static final int V = 9; 
     int minDistance(double dist[], Boolean sptSet[]) 
     { 
         // Initialize min value 
