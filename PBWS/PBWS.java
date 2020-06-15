@@ -55,11 +55,11 @@ public class PBWS {
         Random r = new Random();
         int result = r.nextInt((maxInt - minInt) + 1) + minInt;
         HashMap<Integer, String[]> operations = new HashMap();
-        String[] temp = {"B","C","D","A","1","5","0.95"};
-        temp[temp.length-1] = String.valueOf(random);
+        String[] temp = {"B","C","D","A","1","5","0.95"};//each tempi string corresponds to a production rule and contains its attributes in the following format:
+        temp[temp.length-1] = String.valueOf(random);//input1,..., inputN(for a rule with N input elements), output, time, cost, probability of success
         temp[temp.length-2] = String.valueOf(result);
-        result = r.nextInt((maxInt - minInt) + 1) + minInt;
-        temp[temp.length-3] = String.valueOf(result);
+        result = r.nextInt((maxInt - minInt) + 1) + minInt;//the values specified at the initialization of each variable correspond to the actual values of the pdm
+        temp[temp.length-3] = String.valueOf(result);//for the purposes of our evaluation these values are replaced by random values
         operations.put(1,temp);
         String[] temp2 = {"F","G","H","C","4","5","0.95"};
         random = ThreadLocalRandom.current().nextDouble(min, max);
@@ -133,22 +133,22 @@ public class PBWS {
         result = r.nextInt((maxInt - minInt) + 1) + minInt;
         temp10[temp10.length-3] = String.valueOf(result);
         operations.put(10,temp10);
-        HashMap<Integer,String[]> operations_graph = (HashMap) operations.clone();
-        int count = 10;
-        int choice =0;
+        HashMap<Integer,String[]> operations_graph = (HashMap) operations.clone();//the original graph is kept for the construction of the adjacency matrixes, because during the execution each executed operation is removed from the initial graph
+        int count = 10;//this variable corresponds to the number of heuristics
+        int choice =0;// this variable denotes which heuristic is executed, according to the order in which they are listed in the array heuritics
         List<Map<Integer, String[]>> listOfMaps = new ArrayList<Map<Integer, String[]>>();
         int u=0;
          
         
         while(u<10)
         {
-           listOfMaps.add((HashMap) operations.clone());
+           listOfMaps.add((HashMap) operations.clone());//we create 10 seperate clones of each instance, one for each heuristic
            u++;
           
            
         }
         
-        while(choice<10)
+        while(choice<10)//for each heuristic
         {
         cost=0;
         time=0;
@@ -186,14 +186,14 @@ public class PBWS {
                   executable.put((Integer)pair.getKey(),(String[]) pair.getValue());
               }
             }
-            //it.remove(); // avoids a ConcurrentModificationException
+           
             
             }
            if(executable.size()==0)//execution has completed since the production of A is no longer possible
            {
-               //System.out.println("oti na nai");
-               System.out.println("cost: " + cost + "     time: " + time);
-               String filename = heuristics[choice] + ".txt";
+               
+               //System.out.println("cost: " + cost + "     time: " + time);
+               String filename = heuristics[choice] + ".txt"; //using the heuristics array and the variable choice, the filename corresponds to the output file that belongs to the heuristic currently executed
                
                pw[choice].println((y+1)+","+cost+","+time);
                
@@ -242,12 +242,6 @@ public class PBWS {
            {
               key=timeDistance(executable,available,operations_graph);
            }
-           //int key=executeRandom(executable,available,operations);
-           //int key = executeLowestCost(executable,available,operations);
-           //int key = executeShortestTime(executable,available,operations);
-           //int key = executeLowestFail(executable,available,operations);
-           //int key = rootDistance(executable,available,operations);
-           //int key = knockout2Path(executable,available,operations);
            
            String[] temp14 = operations.get(key);
            int cost2 = Integer.valueOf(temp14[temp14.length-2]);
@@ -258,7 +252,7 @@ public class PBWS {
            operations.remove(key);//operation is removed from the list of operations as it is no longer available
            if(available.contains("A"))//if A has been produced then the execution is completed
            {
-               System.out.println("cost: " + cost + "     time: " + time);
+               //System.out.println("cost: " + cost + "     time: " + time);
                pw[choice].println((y+1)+","+cost+","+time);
                if(cost==0 || time==0)
                {
@@ -290,11 +284,11 @@ public class PBWS {
       {
        double result = (double) sum[i]/ (double)y; //average execution cost
        pw[i].close();
-       double result2 = (double) sum2[i]/ (double)y;
+       double result2 = (double) sum2[i]/ (double)y;//average execution time
        System.out.println(heuristics[i] +" cost: " + result +  "  time: " +result2);
           
       }
-      System.out.println(debug);
+      
       //double result = (double) sum/ (double)y; //average execution cost
       //System.out.println(result);
       //double result2 = (double) sum2/ (double)y;
@@ -337,11 +331,11 @@ public class PBWS {
             if(result ==1) // the execution was successful and therefore the element is produced and added to the set of available elements
             {
                 available.add(temp13[temp13.length-4]);
-                System.out.println("Op" + key+ "," + temp13[temp13.length-4]);
+                //System.out.println("Op" + key+ "," + temp13[temp13.length-4]);
             }
             else //execution was unsuccessful and therefore the element was not produced
             {
-                System.out.println("Op" + key+ "," + temp13[temp13.length-4] + " fail");
+                //System.out.println("Op" + key+ "," + temp13[temp13.length-4] + " fail");
             }
             
             
@@ -380,12 +374,12 @@ public class PBWS {
         if(result ==1) // the execution was successful and therefore the element is produced and added to the set of available elements
         {
             available.add(temp16[temp16.length-4]);
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
             
         }
         else //execution was unsuccessful and therefore the element was not produced
         {
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
         }
         
         return key;
@@ -415,18 +409,18 @@ public class PBWS {
         if(result ==1) // the execution was successful and therefore the element is produced and added to the set of available elements
         {
             available.add(temp16[temp16.length-4]);
-            System.out.println("ShortestOp" + key+ "," + temp16[temp16.length-4]);
+            //System.out.println("ShortestOp" + key+ "," + temp16[temp16.length-4]);
             
         }
         else //execution was unsuccessful and therefore the element was not produced
         {
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
         }
         
         return key;
     }
     
-    private static int executeLowestFail(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)
+    private static int executeLowestFail(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)//lowest failure probability execution strategy
     {
         int n = input.size();
         double[][] cost = new double [n][3];
@@ -450,18 +444,18 @@ public class PBWS {
         if(result ==1) // the execution was successful and therefore the element is produced and added to the set of available elements
         {
             available.add(temp16[temp16.length-4]);
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
             
         }
         else //execution was unsuccessful and therefore the element was not produced
         {
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
         }
         
         return key;
     }
     
-    public static int getMinValue(int[][] numbers)
+    public static int getMinValue(int[][] numbers)//returns the index of minimum number of a int array
     {
                 
         int minValue = numbers[0][1];
@@ -478,7 +472,7 @@ public class PBWS {
 		return numbers[index][0];
 	}
     
-    public static int getMinValueDouble(double[][] numbers)
+    public static int getMinValueDouble(double[][] numbers) //returns the index of minimum value of a double array
     {
                 
         double minValue = numbers[0][1];
@@ -495,7 +489,7 @@ public class PBWS {
 		return (int) numbers[index][0];
 	}
     
-    public static double getMaxValue(double[][] numbers)
+    public static double getMaxValue(double[][] numbers)// returns the index of max value of a double array
     {
                 
         double maxValue = numbers[0][1];
@@ -512,7 +506,7 @@ public class PBWS {
 		return numbers[index][0];
 	}
     
-    public static int getMinValue2(int[][] numbers)
+    public static int getMinValue2(int[][] numbers)// returns the minimum value of an int array
     {
                 
         int minValue = numbers[0][1];
@@ -543,56 +537,9 @@ public class PBWS {
         }
     }
     
-    private static int rootDistanceOld(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)
-    {
-        int graph[][] = new int[][] { { 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0}, //end   
-                                      { 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0}, //1
-                                      { 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1}, //2
-                                      { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}, //3
-                                      { 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0}, //4
-                                      { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //5
-                                      { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //6
-                                      { 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0}, //7
-                                      { 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0},//8
-                                      { 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0},//9
-                                      { 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0}}; //10
-        ShortestPath s = new ShortestPath(); 
-        int[] dist = s.dijkstra(graph, 0); 
-        dist = ArrayUtils.remove(dist, 0);
-        int n = input.size();
-        int[][] cost = new int [n][2];
-        Iterator t = input.entrySet().iterator();
-        int i=0;
-        while(t.hasNext())
-        {
-          HashMap.Entry pair = (HashMap.Entry) t.next();  // takes from the dist array, which contains the distance from root for all operations, the distances
-          int temp15= (Integer) pair.getKey(); // of the available for execution operations and saves them in the cost array
-          
-          cost[i][0]= temp15; 
-          cost[i][1]= dist[temp15-1];
-          
-          i++;
-        }
-        int key =getMinValue(cost); // the rule with the lowest value(distance from root) is selected for execution
-        //System.out.println(key);
-        String[] temp16 = input.get(key);
-        double prob = Double.parseDouble(temp16[temp16.length-1]);
-        input.remove(key);
-        int result = execution(prob);
-        if(result ==1) // the execution was successful and therefore the element is produced and added to the set of available elements
-        {
-            available.add(temp16[temp16.length-4]);
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
-            
-        }
-        else //execution was unsuccessful and therefore the element was not produced
-        {
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
-        }
-        return key;
-    }
     
-    private static int rootDistance(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)
+    
+    private static int rootDistance(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)//distance from root element execution strategy
     {
         int graph[][] = new int[9][9];
         
@@ -667,17 +614,17 @@ public class PBWS {
         if(result ==1) // the execution was successful and therefore the element is produced and added to the set of available elements
         {
             available.add(temp16[temp16.length-4]);
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
             
         }
         else //execution was unsuccessful and therefore the element was not produced
         {
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
         }
         return key;
     }
     
-    private static int costDistance(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)
+    private static int costDistance(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)//distance from root element (in terms of cost) execution strategy
     {
         int graph[][] = new int[9][9];
         if(operations.size()<10)
@@ -755,17 +702,17 @@ public class PBWS {
         if(result ==1) // the execution was successful and therefore the element is produced and added to the set of available elements
         {
             available.add(temp16[temp16.length-4]);
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
             
         }
         else //execution was unsuccessful and therefore the element was not produced
         {
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
         }
         return key;
     }
     
-    private static int timeDistance(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)
+    private static int timeDistance(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)//distance from root element (in terms of time) execution strategy
     {
         int graph[][] = new int[9][9];
         
@@ -840,12 +787,12 @@ public class PBWS {
         if(result ==1) // the execution was successful and therefore the element is produced and added to the set of available elements
         {
             available.add(temp16[temp16.length-4]);
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
             
         }
         else //execution was unsuccessful and therefore the element was not produced
         {
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
         }
         return key;
     }
@@ -860,7 +807,7 @@ public class PBWS {
      
    
    
-   private static int knockoutPath(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)
+   private static int knockoutPath(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)// rank-cost execution strategy
    {
         int graph[][] = new int[9][9];
         double graph2[][] = new double [9][9];
@@ -946,12 +893,12 @@ public class PBWS {
         if(result ==1) // the execution was successful and therefore the element is produced and added to the set of available elements
         {
             available.add(temp16[temp16.length-4]);
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
             
         }
         else //execution was unsuccessful and therefore the element was not produced
         {
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
         }
         return key;
         
@@ -959,7 +906,7 @@ public class PBWS {
    }
    
    
-   private static int knockoutPathTime(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)
+   private static int knockoutPathTime(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)//rank time execution strategy
    {
         int graph[][] = new int[9][9];
         double graph2[][] = new double [9][9];
@@ -1045,19 +992,19 @@ public class PBWS {
         if(result ==1) // the execution was successful and therefore the element is produced and added to the set of available elements
         {
             available.add(temp16[temp16.length-4]);
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
             
         }
         else //execution was unsuccessful and therefore the element was not produced
         {
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
         }
         return key;
         
        
    }
    
-   private static int knockoutPathComb(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)
+   private static int knockoutPathComb(HashMap<Integer,String[]> input, HashSet<String> available, HashMap<Integer,String[]> operations)// rank cost*time strategy
    {
         int graph[][] = new int[9][9];
         double graph2[][] = new double [9][9];
@@ -1143,12 +1090,12 @@ public class PBWS {
         if(result ==1) // the execution was successful and therefore the element is produced and added to the set of available elements
         {
             available.add(temp16[temp16.length-4]);
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4]);
             
         }
         else //execution was unsuccessful and therefore the element was not produced
         {
-            System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
+            //System.out.println("Op" + key+ "," + temp16[temp16.length-4] + " fail");
         }
         return key;
         
